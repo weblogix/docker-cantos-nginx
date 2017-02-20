@@ -29,7 +29,6 @@ COPY conf/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
 # nginx default host
 RUN mkdir -p /var/www/html/default
 COPY conf/nginx/www/index.html /var/www/html/default
-COPY conf/nginx/www/info.php /var/www/html/default
 
 #nginx create folder for additional virtual hosts
 RUN mkdir -p /var/www/html/vhosts
