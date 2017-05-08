@@ -18,7 +18,7 @@ ADD conf/nginx/nginx.repo /etc/yum.repos.d/nginx.repo
 RUN yum -y update
 
 # install tools
-RUN yum -y install epel-release initscripts nano bind-utils net-tools gettext
+RUN yum -y install epel-release initscripts nano bind-utils net-tools which
 
 # install nginx web server
 RUN yum -y install nginx
@@ -53,6 +53,8 @@ RUN openssl req -new -key /etc/ssl/private/nginx-selfsigned.key  -out server.csr
   -subj "/C=UK/ST=Warwickshire/L=Leamington/O=OrgName/OU=IT Department/CN=example.com"
 RUN openssl x509 -req -days 365 -in server.csr -signkey /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt
 RUN openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
+
+CMD ["/usr/sbin/init"]
 
 # Copy supervisor configuration file
 RUN yum -y install supervisor
