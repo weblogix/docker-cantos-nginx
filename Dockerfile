@@ -9,6 +9,7 @@ FROM centos:centos7
 # Image author/maintainer
 MAINTAINER Randy Lowe <randy@weblogix.ca>
 
+CMD ["/usr/sbin/init"]
 RUN yum install -y ca-certificates
 
 # Add repo's
@@ -26,14 +27,6 @@ RUN yum -y install nginx
 # nginx configuration
 COPY conf/nginx/nginx.conf /etc/nginx/nginx.conf
 COPY conf/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
-
-# ENV NGINX_HOST=sample.dev
-# ENV NGINX_PORT=80
-# ENV NGINX_PORT_SECURE=443
-# ENV PHPFPM_HOST=127.0.0.1
-# ENV PHPFPM_PORT=9000
-# RUN envsubst < /etc/nginx/conf.d/default.template > /etc/nginx/conf.d/default.conf
-# RUN sh -c "envsubst < /etc/nginx/conf.d/default.template > /etc/nginx/conf.d/default.conf"
 
 # nginx default host
 RUN mkdir -p /var/www/html/default
@@ -54,8 +47,6 @@ RUN openssl req -new -key /etc/ssl/private/nginx-selfsigned.key  -out server.csr
 RUN openssl x509 -req -days 365 -in server.csr -signkey /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt
 RUN openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
 
-CMD ["/usr/sbin/init"]
-
 # Copy supervisor configuration file
 RUN yum -y install supervisor
 COPY conf/supervisor/supervisord.conf /etc/supervisord.conf
@@ -71,4 +62,5 @@ RUN yum clean all
 EXPOSE 80
 EXPOSE 443
 
+CMD ["/usr/sbin/init"]
 CMD ["/usr/bin/supervisord"]
