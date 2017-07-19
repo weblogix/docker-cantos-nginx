@@ -20,6 +20,8 @@ COPY conf/nginx/conf.d /etc/nginx/conf.d
 
 # nginx default host
 RUN mkdir -p /var/www/html/default
+RUN mkdir -p /var/lib/php/session
+RUN chown -Rf nginx:nginx /var/lib/php/session
 COPY www/ /var/www/html/default
 
 # Expose ports
