@@ -23,6 +23,9 @@ RUN mkdir -p /var/lib/php/session
 RUN chown -Rf nginx:nginx /var/lib/php/session
 COPY www/ /var/www/html/default
 
+# Update Diffie-Hellman Parameters
+RUN openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
+
 # Expose ports
 EXPOSE 80
 EXPOSE 443
