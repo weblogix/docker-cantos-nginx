@@ -1,6 +1,5 @@
 ###############################################
-# Dockerfile to build nginx
-# based on CentOS 7 image
+# Dockerfile to build a custom nginx container.
 ###############################################
 
 # Set the base image to latest nginx image
@@ -10,7 +9,7 @@ FROM nginx:latest
 MAINTAINER Randy Lowe <randy@weblogix.ca>
 
 RUN apt-get update
-RUN apt-get install -y openssl bash
+RUN apt-get install -y openssl bash letsencrypt
 
 # nginx configuration
 RUN mkdir -p /etc/nginx/modules
