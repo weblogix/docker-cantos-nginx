@@ -21,7 +21,8 @@ COPY www/ /var/www/html/default
 
 # php session
 RUN mkdir -p /var/lib/php/session
-RUN chown -Rf nginx:nginx /var/lib/php
+RUN chown -Rf nginx:nginx /var/lib/php/session
+RUN chmod -Rf 755 /var/lib/php/session
 
 # Update Diffie-Hellman Parameters
 RUN openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
