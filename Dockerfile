@@ -14,10 +14,15 @@ COPY conf/nginx/modules /etc/nginx/modules
 COPY conf/nginx/conf.d /etc/nginx/conf.d
 
 # nginx default host
-RUN mkdir -p /var/www/html/default
+RUN mkdir -p /var/www/html
+COPY www/ /var/www/html
+
+# PHP stuff
 RUN mkdir -p /var/lib/php/session
 RUN chown -Rf nginx:nginx /var/lib/php/session
-COPY www/ /var/www/html/default
+
+# temp stuff
+RUN mkdir -p /var/lib/nginx/cache/client_body
 
 # php session
 RUN mkdir -p /var/lib/php/session
